@@ -34,6 +34,9 @@ feature "ToDos" do
       expect(page).to have_no_content "Get a haircut"
       expect(page).to have_content "ToDo updated"
 
+    click_button "Complete"
+    expect(page).to have_no_content "Get a perm"
+
 
   end
 end

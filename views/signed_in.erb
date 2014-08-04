@@ -29,6 +29,10 @@
             <form method="get" action="/todos/edit/<%= todo.id%>">
             <input type="submit" id="todo_id" value="Edit ToDo" class="btn btn-success"/>
             </form>
+            <form method="post" action="/todos/complete/<%= todo.id%>">
+              <input type="hidden" name="_method" value="delete"/>
+              <input type="submit" id="todo_id" value="Complete" class="btn btn-success"/>
+            </form>
           </li>
       <% end %>
     </ul>

@@ -68,15 +68,21 @@ class ToDoApp < Sinatra::Application
   end
 
   get "/todos/edit/:id" do
-    todo = ToDoItem.find(params[:id])
+    todo = current_todo
 
     erb :edit, locals: {todo: todo}
   end
 
   patch "/todos/update/:id" do
-    todo = ToDoItem.find(params[:id])
+    todo = current_todo
     todo.update(body: params[:edit_todo])
     flash[:notice] = "ToDo updated"
+    redirect "/"
+  end
+
+  delete "/todos/complete/:id" do
+    todo = current_todo
+    todo.destroy
     redirect "/"
   end
 
@@ -88,6 +94,10 @@ class ToDoApp < Sinatra::Application
 
   def current_user
     User.find_by(id: session[:user_id])
+  end
+
+  def current_todo
+    ToDoItem.find(params[:id])
   end
 
 end
