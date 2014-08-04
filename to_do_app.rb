@@ -1,7 +1,7 @@
 require "sinatra"
 require "gschool_database_connection"
 require "rack-flash"
-
+require "active_record"
 require "./lib/to_do_item"
 require "./lib/user"
 
@@ -64,6 +64,19 @@ class ToDoApp < Sinatra::Application
 
     flash[:notice] = "ToDo added"
 
+    redirect "/"
+  end
+
+  get "/todos/edit/:id" do
+    todo = ToDoItem.find(params[:id])
+
+    erb :edit, locals: {todo: todo}
+  end
+
+  patch "/todos/update/:id" do
+    todo = ToDoItem.find(params[:id])
+    todo.update(body: params[:edit_todo])
+    flash[:notice] = "ToDo updated"
     redirect "/"
   end
 

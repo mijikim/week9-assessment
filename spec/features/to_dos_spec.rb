@@ -1,5 +1,5 @@
 feature "ToDos" do
-  scenario "A user can sign in a create a ToDo" do
+  scenario "A user can sign in a create/edit a ToDo" do
 
     visit "/"
 
@@ -25,5 +25,15 @@ feature "ToDos" do
     within ".todos" do
       expect(page).to have_content "Get a haircut"
     end
+
+    click_button "Edit ToDo"
+    fill_in "Update Your ToDo", with: "Get a perm"
+    click_button "Update ToDo"
+
+      expect(page).to have_content "Get a perm"
+      expect(page).to have_no_content "Get a haircut"
+      expect(page).to have_content "ToDo updated"
+
+
   end
 end

@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-lg-8" id="update_todo_form">
+    <form method="post" action="/todos/update/<%= todo.id %>">
+      <input type="hidden" name="_method" value="patch" />
+      <ul>
+        <li>
+          <label for="edit_todo">Update Your ToDo</label>
+          <input type="text" name="edit_todo" id="edit_todo" placeholder="<%= todo.body %>" class="form-control"/>
+        </li>
+        <li>
+          <input type="submit" value="Update ToDo" class="btn btn-success"/>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
