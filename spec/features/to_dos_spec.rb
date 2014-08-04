@@ -37,6 +37,54 @@ feature "ToDos" do
     click_button "Complete"
     expect(page).to have_no_content "Get a perm"
 
+  end
+
+  scenario "User will only see their ToDos" do
+    visit "/"
+
+    click_link "Register"
+
+    fill_in "Username", with: "hunta"
+    fill_in "Password", with: "pazzword"
+
+    click_button "Register"
+
+    fill_in "Username", with: "hunta"
+    fill_in "Password", with: "pazzword"
+
+    click_button "Sign In"
+
+    fill_in "What do you need to do?", with: "Get a haircut"
+    click_button "Add ToDo"
+
+    within ".todos" do
+      expect(page).to have_content "Get a haircut"
+    end
+
+    click_button "Sign Out"
+
+    visit "/"
+
+    click_link "Register"
+
+    fill_in "Username", with: "miji"
+    fill_in "Password", with: "1234"
+
+    click_button "Register"
+
+    fill_in "Username", with: "miji"
+    fill_in "Password", with: "1234"
+
+    click_button "Sign In"
+
+    fill_in "What do you need to do?", with: "Get a perm"
+    click_button "Add ToDo"
+
+    within ".todos" do
+      expect(page).to have_content "Get a perm"
+      expect(page).to have_no_content "Get a haircut"
+    end
 
   end
+
 end
